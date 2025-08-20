@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="row">
+    <div class="col-md-3">
+        <div class="card text-white bg-primary mb-3">
+            <div class="card-body">
+                <h5 class="card-title">Total Loans</h5>
+                <p class="card-text display-6">{{ total_loans }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-white bg-success mb-3">
+            <div class="card-body">
+                <h5 class="card-title">Active Loans</h5>
+                <p class="card-text display-6">{{ active_loans }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-white bg-warning mb-3">
+            <div class="card-body">
+                <h5 class="card-title">Pending Loans</h5>
+                <p class="card-text display-6">{{ pending_loans }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-white bg-info mb-3">
+            <div class="card-body">
+                <h5 class="card-title">Total Balance</h5>
+                <p class="card-text display-6">${{ total_balance }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-md-12">
+        <h2>Recent Loans</h2>
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Loan Type</th>
+                        <th>Amount</th>
+                        <th>Term</th>
+                        <th>Status</th>
+                        <th>Application Date</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for loan in loans %}
+                    <tr>
+                        <td>{{ loan.loan_type.name }}</td>
+                        <td>${{ loan.amount }}</td>
+                        <td>{{ loan.term }} months</td>
+                        <td>
+                            <span class="badge bg-{% if loan.status == 'approved' %}success{% elif loan.status == 'pending' %}warning{% elif loan.status == 'rejected' %}danger{% else %}secondary{% endif %}">
+                                {{ loan.get_status_display }}
+                            </span>
+                        </td>
+                        <td>{{ loan.application_date|date:"M d, Y" }}</td>
+                        <td>
+                            <a href="{% url 'loan_detail' loan.pk %}" class="btn btn-sm btn-info">View</a>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="6" class="text-center">No loans found.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <a href="{% url 'loan_application' %}" class="btn btn-primary">Apply for New Loan</a>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="jumbotron bg-light p-5 rounded-lg m-3">
+    <h1 class="display-4">Welcome to Loan Management System</h1>
+    <p class="lead">Manage your loans efficiently with our comprehensive loan management system.</p>
+    <hr class="my-4">
+    <p>Apply for new loans, track your repayments, and manage your financial portfolio.</p>
+    <a class="btn btn-primary btn-lg" href="{% url 'login' %}" role="button">Login</a>
+    <a class="btn btn-secondary btn-lg" href="{% url 'register' %}" role="button">Register</a>
+</div>
+
+<div class="row mt-5">
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Easy Application</h5>
+                <p class="card-text">Apply for loans with our simple and straightforward application process.</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Track Repayments</h5>
+                <p class="card-text">Monitor your repayment schedule and make payments on time.</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Secure & Reliable</h5>
+                <p class="card-text">Your financial data is protected with industry-standard security measures.</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
